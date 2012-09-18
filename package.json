@@ -3,6 +3,8 @@
   "description": "NodeJs and AngularJs implementation of jsFiddle",
   "version": "0.0.1",
   "dependencies": {
-    "request": "~2.11.4"
+    "request": "~2.11.4",
+    "hogan.js": "*",
+    "ejs": "~0.8.3"
   }
 }

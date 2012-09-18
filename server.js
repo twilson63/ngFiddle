@@ -3,7 +3,7 @@ var http = require('http'),
   filed = require('filed'),
   request = require('request'),
   hogan = require('hogan.js'),
-  template = hogan.compile(fs.readFileSync('./template.html.mu', 'utf-8'));
+  template = hogan.compile(fs.readFileSync('./views/template.html.mu', 'utf-8'));
 
 var COUCH = process.env.COUCH || 'http://localhost:5984';
 
@@ -26,6 +26,6 @@ http.createServer(function(req,res){
       res.end(template.render(b));
     });
   } else {
-    filed(__dirname + pathname).pipe(res);
+    filed(__dirname + '/public' + pathname).pipe(res);
   }
 }).listen(3000);

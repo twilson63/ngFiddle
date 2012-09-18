@@ -1,7 +1,7 @@
 function fiddleCtrl($scope, $http) {
   $scope.html = "<div ng-controller=\"helloCtrl\">\r\n  <h1>Hello {{world}}</h1>\r\n</div>";
   $scope.css = "h1 {\r\n  color: blue;\r\n}";
-  $scope.js = "function helloCtrl($scope) {\r\n  $scope.hello = \"world\"\r\n};"
+  $scope.js = "function helloCtrl($scope) {\r\n  $scope.world = \"world\";\r\n};"
   $scope.preview = function() {
     $scope.page = 'http://localhost:3000/loading.html';
     //$scope.page = 'http://localhost:3000/';

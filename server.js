@@ -15,6 +15,7 @@ http.createServer(function(req,res){
   } else if (/^\/fiddle\//.test(pathname) && req.method === 'PUT') {
     req.pipe(request.put(COUCH + pathname)).pipe(res);
   } else if (/^\/fiddle\//.test(pathname) && req.method === 'GET') {
+    //req.pipe(request(COUCH + pathname)).pipe(res);
     // merge html css and js into doc and return.
     request(COUCH + pathname, {json: true}, function(e,r,b){
       if(e) { 

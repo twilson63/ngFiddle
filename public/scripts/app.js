@@ -1,7 +1,15 @@
 function fiddleCtrl($scope, $http) {
-  $scope.html = "<div ng-controller=\"helloCtrl\">\r\n  <h1>Hello {{world}}</h1>\r\n</div>";
+  $scope.html = "<div ng-controller=\"helloCtrl\">\r\n  <h1>Hello {{world}}</h1>\r\n  <input ng-model=\"world\" />\r\n</div>";
   $scope.css = "h1 {\r\n  color: blue;\r\n}";
   $scope.js = "function helloCtrl($scope) {\r\n  $scope.world = \"world\";\r\n};"
+  $scope.load = function() {
+    $http.get('/fiddle/' + $scope._id).success(function(data){
+      console.log(data);
+      $scope.html = data.html;
+      $scope.css = data.css;
+      $scope.js = data.js;
+    });
+  }
   $scope.preview = function() {
     $scope.page = '/loading.html';
     //$scope.page = 'http://localhost:3000/';

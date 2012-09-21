@@ -2,52 +2,38 @@ var http = require('http'),
   qs = require('querystring'),
   fs = require('fs'),
   filed = require('filed'),
+  es = require('event-stream'),
   request = require('request'),
   hogan = require('hogan.js'),
   template = hogan.compile(fs.readFileSync('./views/template.html.mu', 'utf-8')),
   index = hogan.compile(fs.readFileSync('./views/index.html.mu', 'utf-8'), { delimiters: '<% %>'});
 
 var COUCH = process.env.COUCH || 'http://localhost:5984';
+var DEMO = JSON.stringify({
+  html: "<div ng-controller=\"helloCtrl\">\r\n  <h1>Hello {{world}}</h1>\r\n  <input ng-model=\"world\" />\r\n</div>",
+  css: "h1 {\r\n  color: blue;\r\n}",
+  js: "function helloCtrl($scope) {\r\n  $scope.world = \"world\";\r\n};"
+});
 
 http.createServer(function(req,res){
-  var pathname = req.url;
-  //if (req.url === '/') { pathname = '/index.html' }
-  if (pathname === '/fiddle' && req.method === 'POST') {
-    req.pipe(request(COUCH + pathname)).pipe(res);
-  } else if (/^\/fiddle\//.test(pathname) && req.method === 'PUT') {
-    req.pipe(request.put(COUCH + pathname)).pipe(res);
-  } else if (/^\/fiddle\//.test(pathname) && req.method === 'GET') {
-    //req.pipe(request(COUCH + pathname)).pipe(res);
-    // merge html css and js into doc and return.
-    request(COUCH + pathname, {json: true}, function(e,r,b){
-      if(e) { 
-        res.writeHead(500, {'Content-Type': 'text/plain'});
-        res.end(e.message);
-        return;
-      }
-      res.writeHead(200, {'Content-Type': 'text/html'});
-      res.end(template.render(b));
-    });
-  } else if (/^\/\?id/.test(req.url)) {
+  var pathname = req.url,
+    fiddle = /^\/fiddle/.test(pathname),
+    hasParams = /^\/\?id/.test(req.url),
+    root = /^\/$/.test(req.url);
+    
+  if (fiddle){
+    if (req.method === 'POST'){ es.pipeline(req, request(COUCH + pathname), res); }
+    else if (req.method === 'PUT') { es.pipeline(req, request.put(COUCH + pathname), res); }
+    else { es.pipeline(req, request(COUCH + pathname), es.map(renderTemplate), res); }
+  } else if (hasParams) {
     var id = qs.parse(req.url.split('?')[1]).id;
-    request(COUCH + '/fiddle/' + id, {json: true }, function(e,r,b){
-      if(e) { 
-        res.writeHead(500, {'Content-Type': 'text/plain'});
-        res.end(e.message);
-        return;
-      }
-      res.writeHead(200, {'Content-Type': 'text/html'});
-      res.end(index.render({ doc: JSON.stringify(b) }));
-    });
-  } else if (/^\/$/.test(req.url)) {
-    var doc = JSON.stringify({
-      html: "<div ng-controller=\"helloCtrl\">\r\n  <h1>Hello {{world}}</h1>\r\n  <input ng-model=\"world\" />\r\n</div>",
-      css: "h1 {\r\n  color: blue;\r\n}",
-      js: "function helloCtrl($scope) {\r\n  $scope.world = \"world\";\r\n};"
-    });
-    res.writeHead(200, {'Content-Type': 'text/html'});
-    res.end(index.render({ doc: doc }));    
+    es.pipeline(req, request(COUCH + '/fiddle/' + id), es.map(renderIndex), res);
+  } else if (root) {
+    res.end(index.render({ doc: DEMO }));    
   } else {
     filed(__dirname + '/public' + pathname).pipe(res);
   }
 }).listen(3000);
+
+function renderTemplate(data, cb) { cb(null, template.render(JSON.parse(data))); }
+function renderIndex(data, cb) { cb(null, index.render({ doc: data })); }

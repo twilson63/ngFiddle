@@ -1,7 +1,4 @@
 function fiddleCtrl($scope, $http, $window) {
-  // $scope.html = "<div ng-controller=\"helloCtrl\">\r\n  <h1>Hello {{world}}</h1>\r\n  <input ng-model=\"world\" />\r\n</div>";
-  // $scope.css = "h1 {\r\n  color: blue;\r\n}";
-  // $scope.js = "function helloCtrl($scope) {\r\n  $scope.world = \"world\";\r\n};"
   $scope.html = $window.foo.html;
   $scope.css = $window.foo.css;
   $scope.js = $window.foo.js;
@@ -14,7 +11,6 @@ function fiddleCtrl($scope, $http, $window) {
 
   $scope.load = function() {
     $http.get('/fiddle/' + $scope._id).success(function(data){
-      console.log(data);
       $scope.html = data.html;
       $scope.css = data.css;
       $scope.js = data.js;
@@ -22,21 +18,23 @@ function fiddleCtrl($scope, $http, $window) {
   }
   $scope.preview = function() {
     $scope.page = '/loading.html';
-    //$scope.page = 'http://localhost:3000/';
+    var data = { html: $scope.html, css: $scope.css, js: $scope.js };
+    if ($scope._rev) {  data._rev = $scope._rev }
     if ($scope._id) {
-      $http.put('/fiddle/' + $scope._id, { html: $scope.html, css: $scope.css, js: $scope.js, _rev: $scope._rev }).success(function(data){
-        $scope.page = '/fiddle/' + data.id;
-        $scope._id = data.id;
-        $scope._rev = data.rev;
-        $scope.url = 'http://' + $window.location.host + '/?id=' + data.id;
+      $http.put('/fiddle/' + $scope._id, data).success(function(data){
+        updateScope(data);
       });
     } else {
-      $http.post('/fiddle', { html: $scope.html, css: $scope.css, js: $scope.js }).success(function(data){
-        $scope.page = '/fiddle/' + data.id;
-        $scope._id = data.id;
-        $scope._rev = data.rev;
-        $scope.url = 'http://' + $window.location.host + '/?id=' + data.id;
+      $http.post('/fiddle', data).success(function(data){
+        updateScope(data);
       });
     }
+  }
+
+  var updateScope = function(data) {
+    $scope.page = '/fiddle/' + data.id;
+    $scope._id = data.id;
+    $scope._rev = data.rev;
+    $scope.url = 'http://' + $window.location.host + '/?id=' + data.id;    
   }
 }

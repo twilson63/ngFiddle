@@ -1,7 +1,17 @@
-function fiddleCtrl($scope, $http) {
-  $scope.html = "<div ng-controller=\"helloCtrl\">\r\n  <h1>Hello {{world}}</h1>\r\n  <input ng-model=\"world\" />\r\n</div>";
-  $scope.css = "h1 {\r\n  color: blue;\r\n}";
-  $scope.js = "function helloCtrl($scope) {\r\n  $scope.world = \"world\";\r\n};"
+function fiddleCtrl($scope, $http, $window) {
+  // $scope.html = "<div ng-controller=\"helloCtrl\">\r\n  <h1>Hello {{world}}</h1>\r\n  <input ng-model=\"world\" />\r\n</div>";
+  // $scope.css = "h1 {\r\n  color: blue;\r\n}";
+  // $scope.js = "function helloCtrl($scope) {\r\n  $scope.world = \"world\";\r\n};"
+  $scope.html = $window.foo.html;
+  $scope.css = $window.foo.css;
+  $scope.js = $window.foo.js;
+  if ($window.foo._id) { 
+    $scope._id = $window.foo._id; 
+    $scope.page = '/fiddle/' + $scope._id;
+    $scope.url = 'http://' + $window.location.host + '/?id=' + $scope._id;
+  }
+  if ($window.foo._rev) { $scope._rev = $window.foo._rev; }
+
   $scope.load = function() {
     $http.get('/fiddle/' + $scope._id).success(function(data){
       console.log(data);
@@ -18,12 +28,14 @@ function fiddleCtrl($scope, $http) {
         $scope.page = '/fiddle/' + data.id;
         $scope._id = data.id;
         $scope._rev = data.rev;
+        $scope.url = 'http://' + $window.location.host + '/?id=' + data.id;
       });
     } else {
       $http.post('/fiddle', { html: $scope.html, css: $scope.css, js: $scope.js }).success(function(data){
         $scope.page = '/fiddle/' + data.id;
         $scope._id = data.id;
         $scope._rev = data.rev;
+        $scope.url = 'http://' + $window.location.host + '/?id=' + data.id;
       });
     }
   }

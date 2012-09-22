@@ -10,7 +10,7 @@
     <style type="text/css">
       body { margin-top: 90px;}
       iframe {
-        background: url(http://placehold.it/1000x300/777777&text=preview) no-repeat;
+        background: url(http://placehold.it/1000x300/777777/888888&text=preview) no-repeat;
       }
       textarea {
         width: 100%;
@@ -19,15 +19,16 @@
         font-size: 1.5em;
         line-height: 30px;
         font-family: monospace;
+        padding-left: 10px;
       }
       textarea.html {
         color: orange;
-        background: url(http://placehold.it/470x300/333333&text=html) no-repeat;
+        background: url(http://placehold.it/470x300/333333/555555&text=html) no-repeat;
       }
 
       textarea.js {
         color: yellow;
-        background: url(http://placehold.it/470x300/333333&text=js) no-repeat;
+        background: url(http://placehold.it/470x300/333333/555555&text=js) no-repeat;
       }
 
     </style>

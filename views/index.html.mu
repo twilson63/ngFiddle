@@ -43,9 +43,6 @@
           <div class="span8">
           <form class="form-search"><input class='span6' placeholder='fiddle url' value="{{url}}"></input><button class='btn' ng-click="preview()">Run</button></form>
           </div>
-          <ul class="nav">
-            <li><a href="#">About</a></li>
-          </ul>
         </div>
       </div>
     </div>
@@ -80,5 +77,18 @@
       window.foo = <%& doc %>;
     </script>
     <script src="/scripts/app.js"></script>
+    <script type="text/javascript">
+      var _gauges = _gauges || [];
+      (function() {
+        var t   = document.createElement('script');
+        t.type  = 'text/javascript';
+        t.async = true;
+        t.id    = 'gauges-tracker';
+        t.setAttribute('data-site-id', '505db9a9613f5d242c000034');
+        t.src = '//secure.gaug.es/track.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(t, s);
+      })();
+    </script>
   </body>
 </html>

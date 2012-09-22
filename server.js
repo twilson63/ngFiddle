@@ -11,7 +11,7 @@ var http = require('http'),
 var COUCH = process.env.COUCH || 'http://localhost:5984';
 var DEMO = JSON.stringify({
   html: "<div ng-controller=\"helloCtrl\">\r\n  <h1>Hello {{world}}</h1>\r\n  <input ng-model=\"world\" />\r\n</div>",
-  css: "h1 {\r\n  color: blue;\r\n}",
+  css: "h1 {\r\n  color: whitesmoke;\r\n}",
   js: "function helloCtrl($scope) {\r\n  $scope.world = \"world\";\r\n};"
 });
 

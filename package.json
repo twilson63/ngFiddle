@@ -1,12 +1,13 @@
 {
   "name": "ngFiddle",
   "description": "NodeJs and AngularJs implementation of jsFiddle",
-  "version": "0.0.1-7",
+  "version": "0.0.1-9",
   "dependencies": {
     "request": "~2.11.4",
     "hogan.js": "*",
     "ejs": "~0.8.3",
-    "filed": "0.0.x"
+    "filed": "0.0.x",
+    "event-stream": "2.2.x"
   },
   "subdomain": "ngfiddle",
   "scripts": {

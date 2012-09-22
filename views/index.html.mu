@@ -62,6 +62,19 @@
         <iframe width="99%" height="100%" style="margin-left: 20px;height: 300px;" src="{{page}}"></iframe>
       </div>
     </div>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a href="#" class="brand">All Rights Reserved.</a>
+          <ul class="nav pull-right">
+            <li><a href="http://twitter.com/twilson63">@twilson63</a></li>
+            <li><a href="http://github.com/twilson63/ngfiddle">Source</a></li>
+            <li><a href="http://jackhq.com">Jack Russell Software</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
     <script src="/scripts/angular.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">
       window.foo = <%& doc %>;

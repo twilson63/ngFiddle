@@ -40,9 +40,10 @@
           <div class="span2">
           <a href="#" class="brand">&lt;ngFiddle&gt;</a>
           </div>
-          <div class="span8">
+          <div class="span7">
           <form class="form-search"><input class='span6' placeholder='fiddle url' value="{{url}}"></input><button class='btn' ng-click="preview()">Run</button></form>
           </div>
+          <a href="http://angularjs.org" class="brand" target="_blank">AngularJs Docs</a>
         </div>
       </div>
     </div>
@@ -59,13 +60,13 @@
         <iframe width="99%" height="100%" style="margin-left: 20px;height: 300px;" src="{{page}}"></iframe>
       </div>
     </div>
-    <div class="navbar">
+    <div class="navbar navbar-fixed-bottom">
       <div class="navbar-inner">
         <div class="container">
           <a href="#" class="brand">All Rights Reserved.</a>
           <ul class="nav pull-right">
             <li><a href="http://twitter.com/twilson63">@twilson63</a></li>
-            <li><a href="http://github.com/twilson63/ngfiddle">Source</a></li>
+            <li><a href="http://github.com/twilson63/ngfiddle">Github</a></li>
             <li><a href="http://jackhq.com">Jack Russell Software</a></li>
           </ul>
         </div>

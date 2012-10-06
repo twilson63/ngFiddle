@@ -1,12 +1,26 @@
 <!doctype html>
-<html lang="en" ng-app>
+<html lang="en" ng-app="fiddle">
   <head>
-    <title>&lt;ngFiddle&gt;</title>
+    <title>ngFiddle</title>
     <meta charset='utf-8'></meta>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="&lt;ngFiddle&gt; - Play online with AngularJs">
     <meta name="keywords" content="Javascript Tools, AngularJs, NodeJs, and CouchDb">
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" media="screen" title="no title" charset="utf-8">
+    <!--[if lte IE 8]>
+        <script>
+        // The ieshiv takes care of our ui.directives and AngularJS's ng-view, ng-include and ng-pluralize.
+        // However, IF you have custom directives (yours or someone else's) then
+        // add the directly containing module into window.myAngularModules
+
+        window.myAngularModules = [ 'yourModule.ThatContainsAtLeastSomeDirectives', 'somebodyElsesModule' ]; // optional
+        </script>
+        <script src="build/angular-ui-ieshiv.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="/css/angular-ui.min.css" type="text/css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="/css/codemirror.css" type="text/css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="/css/monokai.css" type="text/css" media="screen" title="no title" charset="utf-8">
+    
     <style type="text/css">
       body { margin-top: 90px;}
       iframe {
@@ -16,10 +30,10 @@
         width: 100%;
         max-width:100%;
         height:250px;
-        font-size: 1.5em;
+/*        font-size: 1.5em;
         line-height: 30px;
         font-family: monospace;
-        padding-left: 10px;
+*/        padding-left: 10px;
       }
       textarea.html {
         color: orange;
@@ -38,7 +52,7 @@
       <div class="navbar-inner">
         <div class="container">
           <div class="span2">
-          <a href="#" class="brand">&lt;ngFiddle&gt;</a>
+          <a href="#" class="brand">&lt;ngFiddle&gt; 0.2</a>
           </div>
           <div class="span7">
           <form class="form-search"><input class='span6' placeholder='fiddle url' value="{{url}}"></input><button class='btn' ng-click="preview()">Run</button></form>
@@ -50,14 +64,14 @@
     <div class="container">
       <div class="row">
         <div class="span6">
-          <textarea class="html" ng-model="html"></textarea>
+          <textarea ui-codemirror="{mode: 'htmlmixed', theme:'monokai'}" ng-model="html" class="html"></textarea>
         </div>
         <div class="span6">
-          <textarea class="js" ng-model="js"></textarea>
+          <textarea ui-codemirror="{mode: 'javascript', theme:'monokai'}" ng-model="js"></textarea>
         </div>
       </div>
       <div class="row">
-        <iframe width="99%" height="100%" style="margin-left: 20px;height: 300px;" src="{{page}}"></iframe>
+        <iframe width="99%" height="100%" style="margin-top: 20px;margin-left: 20px;height: 300px;" src="{{page}}"></iframe>
       </div>
     </div>
     <div class="navbar navbar-fixed-bottom">
@@ -72,8 +86,17 @@
         </div>
       </div>
     </div>
-    
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <script src="/scripts/angular.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/scripts/angular-ui-ieshiv.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/scripts/angular-ui.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/scripts/codemirror.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/scripts/javascript.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/scripts/css.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/scripts/xml.js" type="text/javascript" charset="utf-8"></script>
+    
+    <script src="/scripts/htmlmixed.js" type="text/javascript" charset="utf-8"></script>
+    
     <script type="text/javascript">
       window.foo = <%& doc %>;
     </script>

@@ -1,12 +1,24 @@
 <!doctype html>
-<html lang="en" ng-app>
+<html lang="en" ng-app="fiddle">
   <head>
-    <title>&lt;ngFiddle&gt;</title>
+    <title>ngFiddle</title>
     <meta charset='utf-8'></meta>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="&lt;ngFiddle&gt; - Play online with AngularJs">
     <meta name="keywords" content="Javascript Tools, AngularJs, NodeJs, and CouchDb">
+    <!--[if lte IE 8]>
+        <script>
+        // The ieshiv takes care of our ui.directives and AngularJS's ng-view, ng-include and ng-pluralize.
+        // However, IF you have custom directives (yours or someone else's) then
+        // add the directly containing module into window.myAngularModules
+
+        window.myAngularModules = [ 'yourModule.ThatContainsAtLeastSomeDirectives', 'somebodyElsesModule' ]; // optional
+        </script>
+        <script src="build/angular-ui-ieshiv.js"></script>
+    <![endif]-->    
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="css/angular-ui.min.css" type="text/css" media="screen" title="no title" charset="utf-8">
+    
     <style type="text/css">body { margin-top: 90px;}</style>
   </head>
   <body ng-controller="fiddleCtrl">
@@ -28,10 +40,10 @@
     <div class="container">
       <div class="row">
         <div class="span6">
-          <textarea style="color:#fff;background: url(http://placehold.it/470x300&text=html) no-repeat;width: 100%;max-width:100%;height:250px;" ng-model="html"></textarea>
+          <textarea ui-codemirror="{theme:'monokai'}" style="color:#fff;background: url(http://placehold.it/470x300&text=html) no-repeat;width: 100%;max-width:100%;height:250px;" ng-model="html"></textarea>
         </div>
         <div class="span6">
-          <textarea style="color:#fff;background: url(http://placehold.it/470x300&text=js) no-repeat;width: 100%;max-width:100%;height:250px;" ng-model="js"></textarea>
+          <textarea ui-codemirror="{theme:'monokai'}" style="color:#fff;background: url(http://placehold.it/470x300&text=js) no-repeat;width: 100%;max-width:100%;height:250px;" ng-model="js"></textarea>
         </div>
       </div>
       <div class="row">
@@ -39,6 +51,9 @@
       </div>
     </div>
     <script src="/scripts/angular.js" type="text/javascript" charset="utf-8"></script>
+    <script src="scripts/angular-ui-ieshiv.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="scripts/angular-ui.min.js" type="text/javascript" charset="utf-8"></script>
+    
     <script type="text/javascript">
       window.foo = <%& doc %>;
     </script>

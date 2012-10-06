@@ -1,3 +1,5 @@
+angular.module('fiddle', ['ui']);
+
 function fiddleCtrl($scope, $http, $window) {
   $scope.html = $window.foo.html;
   $scope.css = $window.foo.css;

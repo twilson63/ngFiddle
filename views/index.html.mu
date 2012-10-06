@@ -35,16 +35,6 @@
         font-family: monospace;
 */        padding-left: 10px;
       }
-      textarea.html {
-        color: orange;
-        background: url(http://placehold.it/470x300/333333/555555&text=html) no-repeat;
-      }
-
-      textarea.js {
-        color: yellow;
-        background: url(http://placehold.it/470x300/333333/555555&text=js) no-repeat;
-      }
-
     </style>
   </head>
   <body ng-controller="fiddleCtrl">
@@ -52,7 +42,7 @@
       <div class="navbar-inner">
         <div class="container">
           <div class="span2">
-          <a href="#" class="brand">&lt;ngFiddle&gt; 0.2</a>
+          <a href="#" class="brand">&lt;ngFiddle&gt;</a>
           </div>
           <div class="span7">
           <form class="form-search"><input class='span6' placeholder='fiddle url' value="{{url}}"></input><button class='btn' ng-click="preview()">Run</button></form>
@@ -64,7 +54,7 @@
     <div class="container">
       <div class="row">
         <div class="span6">
-          <textarea ui-codemirror="{mode: 'htmlmixed', theme:'monokai'}" ng-model="html" class="html"></textarea>
+          <textarea ui-codemirror="{mode: 'htmlmixed', theme:'monokai'}" ng-model="html"></textarea>
         </div>
         <div class="span6">
           <textarea ui-codemirror="{mode: 'javascript', theme:'monokai'}" ng-model="js"></textarea>
